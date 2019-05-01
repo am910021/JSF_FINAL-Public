@@ -1,0 +1,70 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>頁面名稱</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="keywords" content="" />
+        <meta name="description" content="" />
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700" rel="stylesheet" type="text/css" />
+        <link href="assets/css/pedia.css" rel="stylesheet" type="text/css" media="all" />
+        <!--[if IE 6]>
+        <link href="default_ie6.css" rel="stylesheet" type="text/css" />
+        <![endif]-->
+    </h:head>
+    <h:body>
+        <div id="wrapper">
+            <div id="header">
+                <div id="logo">
+                    <h1><a href="#">百科</a></h1>
+                    <p>wiki</p>
+                </div>
+                <div id="menu">
+                    <ul>
+                        <li><a href="#" accesskey="1" title="">人物</a></li>
+                        <li><a href="#" accesskey="2" title="">世界</a></li>
+                        <li><a href="#" accesskey="3" title="">原著</a></li>
+                        <li><a href="#" accesskey="4" title="">電視劇</a></li>
+                        <li><a href="#" accesskey="5" title="">討論版</a></li>
+                    </ul>
+                </div>
+            </div>
+            <h:form>    
+                <p:textEditor widgetVar="editor1" value="#{editorView.text}" height="600" style="margin-bottom:10px">
+                
+                            <f:facet name="toolbar">
+                <span class="ql-formats">
+                    <button class="ql-bold"></button>
+                    <button class="ql-italic"></button>
+                    <button class="ql-underline"></button>
+                    <button class="ql-strike"></button>
+                    <button class="ql-image"></button>
+                </span>
+                <span class="ql-formats">
+                    <select class="ql-font"></select>
+                    <select class="ql-size"></select>
+                </span>
+            </f:facet>
+                
+                
+                </p:textEditor>
+
+                <p:commandButton value="Submit" update="display" oncomplete="PF('dlg').show()" icon="pi pi-save" />
+                <p:commandButton value="Clear" type="button" onclick="PF('editor1').clear();" icon="pi pi-times" />
+
+                <p:dialog header="Content" widgetVar="dlg" showEffect="fade" hideEffect="fade">
+                    <p:outputPanel id="display">
+                        <h3 style="margin-top:0">Basic</h3>
+                        <h:outputText value="#{editorView.text}" escape="true" />
+                    </p:outputPanel>
+                </p:dialog>     
+            </h:form>
+            <div id="footer">
+                <p>666</p>
+            </div>
+        </div>
+    </h:body>
+</html>
+
