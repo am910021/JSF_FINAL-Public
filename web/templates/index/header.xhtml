@@ -5,9 +5,9 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
     <ui:composition>
-        <!-- Header -->
-        <header id="header" class="alt">
-            <div class="logo"><a href="index.html">WLOP</a></div>
+       <!-- Header -->
+        <header id="header">
+            <div class="logo"><h:link outcome="index.xhtml" value="JWFK"/></div>
             <a href="#menu">Menu</a>
         </header>
 
@@ -15,10 +15,8 @@
         <nav id="menu">
             <ul class="links">
                 <li><h:link outcome="index.xhtml" value="Home"/></li>
-                <li><a href="generic.html">Generic</a></li>
-                <li><a href="elements.html">Elements</a></li>
-                <li><h:link outcome="singup.xhtml" value="Sign Up"/></li>
-                <li><h:link outcome="signin.xhtml" value="Sign In"/></li>
+                <li><h:link outcome="signin.xhtml?from=#{request.requestURI}" value="signin"/></li>
+                <li><h:link outcome="signup.xhtml?from=#{request.requestURI}" value="signup"/></li>
             </ul>
         </nav>
     </ui:composition>

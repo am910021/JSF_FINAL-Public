@@ -12,7 +12,7 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <title>sighin</title>
+        <title>sighup</title>
         <ui:decorate template="templates/head.xhtml" />
     </h:head>
     <h:body class="subpage">
@@ -23,7 +23,7 @@ and open the template in the editor.
             <div class="inner">
                 <header class="align-center">
                     <p>JWFK</p>
-                    <h2>Welcome Back!</h2>
+                    <h2>Join JWFK Today</h2>
                 </header>
             </div>
         </section>
@@ -34,19 +34,30 @@ and open the template in the editor.
                 <div class="box">
                     <div class="content">
                         <header class="align-center">
-                            <p><h:link outcome="sighup.xhtml" value="Don't have an account? Register now"/></p>
-                            <h2>Sign In with Username</h2>
+                            <p><h:link outcome="sighin.xhtml" value="Already have an account? Sign in"/></p>
+                            <h2>Register with Email</h2>
                         </header>
-                        <h:form class="align-center">
+                        <h:form>
+                            <h:outputLabel value="Email"/>
+                            <h:inputText value="#{userBean.email}" pt:placeholder="Enter Email" required="true" requiredMessage="Please enter email"/>
+                            <br/>
+                            <h:outputLabel value="NickName"/>
+                            <h:inputText value="#{userBean.nickName}" pt:placeholder="Enter Nickname" required="true" requiredMessage="Please enter nickname"/>
+                            <br/>
+                            <h:outputLabel value="Username"/>
                             <h:inputText value="#{userBean.username}" pt:placeholder="Enter Username" required="true" requiredMessage="Please enter username"/>
                             <br/>
+                            <h:outputLabel value="Password"/>
                             <h:inputSecret value="#{userBean.password}" pt:placeholder="Enter Password" required="true" requiredMessage="Please enter password"/>
                             <br/>
+                            <h:outputLabel value="Confirm Password"/>
                             <h:inputSecret value="#{userBean.confirmPassword}" pt:placeholder="Confirm Password" required="true" requiredMessage="Please confirm password"/>
                             <br/>
-                            <h:commandButton value="Submit" action="#{userBean.actionSignIn()}"/>
-                            <h:outputText escape="false" value=" "></h:outputText>
-                            <h:link outcome="index.xhtml" value="◀Back" class="button alt"/>
+                            <div class="align-center">
+                                <h:commandButton value="Submit" action="#{userBean.actionSignUp()}"/>
+                                <h:outputText escape="false" value=" "></h:outputText>
+                                <h:link outcome="index.xhtml" value="◀Back" class="button alt"/>
+                            </div>
                         </h:form>
                     </div>
                 </div>
@@ -56,6 +67,5 @@ and open the template in the editor.
         <ui:decorate template="templates/index/footer.xhtml" />
 
         <ui:decorate template="templates/script.xhtml" />
-
     </h:body>
 </html>
