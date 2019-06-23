@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package validation.user;
+package validator.user;
 
 import database.entityControler.UsersFacade;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
@@ -31,19 +32,21 @@ public class EmailValidator implements Validator {
             usersFacade = (UsersFacade)InitialContext.doLookup("java:global/Final/UsersFacade");
         } catch (NamingException ex) {
             Logger.getLogger(EmailValidator.class.getName()).log(Level.SEVERE, null, ex);
-            throw new ValidatorException(new FacesMessage("未知錯誤。"));
+            throw new ValidatorException(new FacesMessage("未知錯誤，請聯絡管理員。"));
         }
         
-        
         String email = (String)value;
-        
-        usersFacade.getEM().createNamedQuery("Users.countEmail").setParameter("email", email).executeUpdate();
+        String regex = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
 
-        //UM.setMode(AbstractManager.MODE.SELECT);
-        //UM.equal(UserEntity_.email, email);
-        //if (!UM.isEmpty()) {
-        //    throw new ValidatorException(new FacesMessage("該使電子郵件已經被使用，請換一個。"));
-        //}
+        if (!email.matches(regex)) {
+            throw new ValidatorException(new FacesMessage("電子郵件不符合規範，請重新輸入。"));
+        }
+        
+        List l = usersFacade.getEM().createNamedQuery("Users.countEmail").setParameter("email", email).getResultList();
+
+        if (!l.isEmpty()) {
+            throw new ValidatorException(new FacesMessage("您無法使用該電子郵件，請更換一個。"));
+        }
 
     }
 

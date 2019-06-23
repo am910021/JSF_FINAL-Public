@@ -17,10 +17,8 @@ import java.util.Formatter;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
-@Stateless
-@LocalBean
  public class Crypto {
-    public boolean checkSHA512(String password, String hash) {
+    public static boolean checkSHA512(String password, String hash) {
         String sha = "";
         try {
             MessageDigest crypt = MessageDigest.getInstance("SHA-512");
@@ -34,7 +32,7 @@ import javax.ejb.Stateless;
     }
 
 
-    public String sha512(String password) {
+    public static String sha512(String password) {
         String sha512 = "";
         try {
             MessageDigest crypt = MessageDigest.getInstance("SHA-512");
@@ -47,7 +45,7 @@ import javax.ejb.Stateless;
         return sha512;
     }
 
-    private String byteToHex(final byte[] hash) {
+    private static String byteToHex(final byte[] hash) {
         Formatter formatter = new Formatter();
         for (byte b : hash) {
             formatter.format("%02x", b);

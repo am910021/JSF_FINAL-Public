@@ -6,6 +6,8 @@
 package tool;
 
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.mail.Message;
@@ -20,46 +22,43 @@ import javax.mail.internet.MimeMessage;
  *
  * @author yuri
  */
-@Stateless
-@LocalBean
 public class Smtp {
 
-    public void send(String email) {
+    private static final Logger LOG = Logger.getLogger(Smtp.class.getName());
 
-        final String username = "example@example.com";
-        final String password = "password";
+    public static boolean send(String address, String subject, String text) {
+
+        final String sUsername = "example@example.com";
+        final String sPassword = "password";
 
         Properties prop = new Properties();
         prop.put("mail.smtp.host", "smtp.gmail.com");
         prop.put("mail.smtp.port", "587");
         prop.put("mail.smtp.auth", "true");
         prop.put("mail.smtp.starttls.enable", "true"); //TLS
-
-        Session session = Session.getInstance(prop,new javax.mail.Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username, password);
-            }
-        });
-
         try {
+            Session session = Session.getInstance(prop, new javax.mail.Authenticator() {
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(sUsername, sPassword);
+                }
+            });
 
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress("example@example.com"));
             message.setRecipients(
                     Message.RecipientType.TO,
-                    InternetAddress.parse(email)
+                    InternetAddress.parse(address)
             );
-            message.setSubject("Testing Gmail TLS");
-            
-            message.setText("Dear Mail Crawler,"
-                    + "\n\n Please do not spam my email!");
+            message.setSubject(subject);
+
+            message.setText(text);
 
             Transport.send(message);
 
-            System.out.println("Done");
-
         } catch (MessagingException e) {
-            e.printStackTrace();
+            LOG.log(Level.SEVERE, e.getMessage());
+            return false;
         }
+        return true;
     }
 }

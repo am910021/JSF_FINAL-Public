@@ -7,6 +7,7 @@ package database.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,6 +33,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u")
     ,@NamedQuery(name = "Users.findUserById", query = "SELECT u FROM Users u WHERE u.id = :id")
     ,@NamedQuery(name = "Users.countEmail", query = "SELECT u FROM Users u WHERE u.email = :email")
+    ,@NamedQuery(name = "Users.findUserByUserName", query = "SELECT u FROM Users u WHERE u.username = :username")
+    ,@NamedQuery(name = "Users.findUserByToken", query = "SELECT u FROM Users u WHERE u.token = :token")
+        
 })
 public class Users implements Serializable {
 
@@ -48,16 +52,59 @@ public class Users implements Serializable {
 
     private boolean activate = false;
 
-    @Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message = "Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    //@Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message = "Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Column(nullable = false)
     private String email;
 
     private String nickName;
 
+    @Basic(optional = false)
+    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
 
     private String description;
+
+    private String token;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date expiryDate;
+
+    /**
+     * Get the value of expiryDate
+     *
+     * @return the value of expiryDate
+     */
+    public Date getExpiryDate() {
+        return expiryDate;
+    }
+
+    /**
+     * Set the value of expiryDate
+     *
+     * @param expiryDate new value of expiryDate
+     */
+    public void setExpiryDate(Date expiryDate) {
+        this.expiryDate = expiryDate;
+    }
+
+    /**
+     * Get the value of token
+     *
+     * @return the value of token
+     */
+    public String getToken() {
+        return token;
+    }
+
+    /**
+     * Set the value of token
+     *
+     * @param token new value of token
+     */
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     /**
      * Get the value of description
