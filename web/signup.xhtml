@@ -14,6 +14,9 @@ and open the template in the editor.
     <h:head>
         <title>sighup</title>
         <ui:decorate template="templates/head.xhtml" />
+        <f:metadata>
+            <f:viewParam name="page" value="#{userBean.page}" />
+        </f:metadata>
     </h:head>
     <h:body class="subpage">
         <ui:decorate template="templates/index/header.xhtml" />
@@ -56,7 +59,7 @@ and open the template in the editor.
                             <div class="align-center">
                                 <h:commandButton value="Submit" action="#{userBean.actionSignUp()}"/>
                                 <h:outputText escape="false" value=" "></h:outputText>
-                                <h:link outcome="index.xhtml" value="◀Back" class="button alt"/>
+                                <h:link outcome="#{userBean.page}" value="◀ Back" class="button alt"/>
                             </div>
                         </h:form>
                     </div>

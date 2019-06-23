@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package entitys;
+package database.entities;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -12,15 +12,27 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author yuri
  */
 @Entity
+@Table(name = "USERS")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u")
+    ,@NamedQuery(name = "Users.findUserById", query = "SELECT u FROM Users u WHERE u.id = :id")
+    ,@NamedQuery(name = "Users.countEmail", query = "SELECT u FROM Users u WHERE u.email = :email")
+})
 public class Users implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -36,6 +48,7 @@ public class Users implements Serializable {
 
     private boolean activate = false;
 
+    @Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message = "Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Column(nullable = false)
     private String email;
 

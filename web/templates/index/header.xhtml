@@ -5,7 +5,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
     <ui:composition>
-       <!-- Header -->
+        <!-- Header -->
         <header id="header">
             <div class="logo"><h:link outcome="index.xhtml" value="JWFK"/></div>
             <a href="#menu">Menu</a>
@@ -15,8 +15,15 @@
         <nav id="menu">
             <ul class="links">
                 <li><h:link outcome="index.xhtml" value="Home"/></li>
-                <li><h:link outcome="signin.xhtml?from=#{request.requestURI}" value="signin"/></li>
-                <li><h:link outcome="signup.xhtml?from=#{request.requestURI}" value="signup"/></li>
+                <li><h:link outcome="index.xhtml" value="Movies"/></li>
+                <li><h:link outcome="index.xhtml" value="TV"/></li>
+                <li><h:link outcome="index.xhtml" value="Games"/></li>
+                <li><h:link outcome="index.xhtml" value="Novels"/></li>
+                <li><h:link outcome="index.xhtml" value="Video"/></li>
+                <li><h:link outcome="index.xhtml" value="會員頁面"/></li>
+                <li><h:link outcome="index.xhtml" value="後台頁面"/></li>
+                <li><h:link outcome="signin.xhtml?page=#{view.viewId == '/signup.xhtml'? '/index.xhtml' : view.viewId}" value="Sign In" rendered="#{view.viewId != '/signin.xhtml'}"/></li>
+                <li><h:link outcome="signup.xhtml?page=#{view.viewId == '/signin.xhtml'? '/index.xhtml' : view.viewId}" value="Sign Up" rendered="#{view.viewId != '/signup.xhtml'}"/></li>
             </ul>
         </nav>
     </ui:composition>

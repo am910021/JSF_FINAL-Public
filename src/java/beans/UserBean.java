@@ -5,9 +5,15 @@
  */
 package beans;
 
+import database.entityControler.UsersFacade;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.EJB;
+import validation.user.EmailValidator;
 
 /**
  *
@@ -23,6 +29,11 @@ public class UserBean implements Serializable {
     public UserBean() {
     }
 
+    @EJB
+    UsersFacade usersFacade;
+
+    private static final Logger LOG = Logger.getLogger(UserBean.class.getName());
+
     private String username;
 
     private String password;
@@ -32,6 +43,26 @@ public class UserBean implements Serializable {
     private String email;
 
     private String nickName;
+
+    private String page;
+
+    /**
+     * Get the value of page
+     *
+     * @return the value of page
+     */
+    public String getPage() {
+        return page;
+    }
+
+    /**
+     * Set the value of page
+     *
+     * @param page new value of page
+     */
+    public void setPage(String page) {
+        this.page = page;
+    }
 
     /**
      * Get the value of nickName
@@ -128,6 +159,10 @@ public class UserBean implements Serializable {
     }
 
     public String actionSignUp() {
-        return "index";
+        //List l = usersFacade.getEM().createNamedQuery("Users.countEmail").setParameter("email", email).getResultList();
+        
+        //Logger.getLogger(EmailValidator.class.getName()).log(Level.SEVERE, null, String.format("test %d", l.size()));
+        return "index.xhtml?faces-redirect=true";
     }
+
 }

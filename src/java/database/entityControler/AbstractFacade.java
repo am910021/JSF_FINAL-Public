@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package entityControler;
+package database.entityControler;
 
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -21,6 +21,10 @@ public abstract class AbstractFacade<T> {
     }
 
     protected abstract EntityManager getEntityManager();
+    
+    public EntityManager getEM(){
+        return this.getEntityManager();
+    }
 
     public void create(T entity) {
         getEntityManager().persist(entity);
