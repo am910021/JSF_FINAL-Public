@@ -1,69 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <title>頁面名稱</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="keywords" content="" />
-        <meta name="description" content="" />
+        <ui:decorate template="/templates/head.xhtml" />
         
-        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700" rel="stylesheet" type="text/css" />
-        <link href="resources/css/pedia.css" rel="stylesheet" type="text/css" media="all" />
-
+        <title>這個標題應該跟section one的h2一樣 即"JWFK維基"</title>
+        <h:outputStylesheet library="css" name="pedia.css"/>
     </h:head>
-    <h:body>
-        <div id="wrapper">
-            <div id="header">
-                <div id="logo">
-                    <h1><a href="#">百科</a></h1>
-                    <p>wiki</p>
-                </div>
-                <div id="menu">
-                    <ul>
-                        <li><a href="#" accesskey="1" title="">人物</a></li>
-                        <li><a href="#" accesskey="2" title="">世界</a></li>
-                        <li><a href="#" accesskey="3" title="">原著</a></li>
-                        <li><a href="#" accesskey="4" title="">電視劇</a></li>
-                        <li><a href="#" accesskey="5" title="">討論版</a></li>
-                    </ul>
-                </div>
-            </div>
-            <h:form>    
-                <p:textEditor widgetVar="editor1" value="#{editorView.text}" height="600" style="margin-bottom:10px">
-                
-                            <f:facet name="toolbar">
-                <span class="ql-formats">
-                    <button class="ql-bold"></button>
-                    <button class="ql-italic"></button>
-                    <button class="ql-underline"></button>
-                    <button class="ql-strike"></button>
-                    <button class="ql-image"></button>
-                </span>
-                <span class="ql-formats">
-                    <select class="ql-font"></select>
-                    <select class="ql-size"></select>
-                </span>
-            </f:facet>
-                
-                
-                </p:textEditor>
+    <h:body class="subpage">
 
-                <p:commandButton value="Submit" update="display" oncomplete="PF('dlg').show()" icon="pi pi-save" />
-                <p:commandButton value="Clear" type="button" onclick="PF('editor1').clear();" icon="pi pi-times" />
+        <ui:decorate template="/templates/index/header.xhtml" />
 
-                <p:dialog header="Content" widgetVar="dlg" showEffect="fade" hideEffect="fade">
-                    <p:outputPanel id="display">
-                        <h3 style="margin-top:0">Basic</h3>
-                        <h:outputText value="#{editorView.text}" escape="true" />
-                    </p:outputPanel>
-                </p:dialog>     
-            </h:form>
-            <div id="footer">
-                <p>666</p>
+        <!-- One -->
+        <section id="One" class="wrapper style3">
+            <div class="inner">
+                <header class="align-center">
+                    <p><h:link outcome="pedia.xhtml" value="編輯:郭雪鈴"/></p>
+                    <h2>JWFK維基</h2>
+                </header>
             </div>
-        </div>
+        </section>
+
+        <!-- Two -->
+        <section id="two" class="wrapper style2">
+            <div id="container"> 
+                <h:form>
+                    <h:outputLabel value="標題" />
+                    <h:inputText value="#{editorView.title}" pt:placeholder="Enter Title"/>
+                    <br/>
+                    <h:outputLabel value="副標題(非必要)"/>
+                    <h:inputText value="#{editorView.subtitle}" pt:placeholder="Enter Subtitle"/>
+
+                    <hr/>
+                    <h:outputLabel value="內文"/>
+                    <p:textEditor widgetVar="editor1" value="#{editorView.text}" height="600" style="margin-bottom:10px">
+
+                        <f:facet name="toolbar">
+                            <span class="ql-formats">
+                                <button class="ql-bold"></button>
+                                <button class="ql-italic"></button>
+                                <button class="ql-underline"></button>
+                                <button class="ql-strike"></button>
+                                <button class="ql-image"></button>
+                            </span>
+                            <span class="ql-formats">
+                                <select class="ql-font"></select>
+                                <select class="ql-size"></select>
+                            </span>
+                        </f:facet>
+
+
+                    </p:textEditor>
+
+                    <div style="text-align:center;">
+                        <p:commandButton value="Submit" update="display" action="#{editorView.actionAddPedias()}"  oncomplete="" icon="pi pi-save" />
+                        <p:commandButton value="Clear" type="button" onclick="PF('editor1').clear();" icon="pi pi-times" />
+                    </div>
+
+                    <p:dialog header="Content" widgetVar="dlg" showEffect="fade" hideEffect="fade">
+                        <p:outputPanel id="display">
+                            <h3 style="margin-top:0">Basic</h3>
+                            <h:outputText value="#{editorView.text}" escape="true" />
+                        </p:outputPanel>
+                    </p:dialog>     
+                </h:form>
+                <div style="clear: both;"></div>  <!-- Prevent container from collapsing -->
+            </div>
+        </section>
+
+        <ui:decorate template="/templates/index/footer.xhtml" />
+
+        <ui:decorate template="/templates/script.xhtml" />
+
     </h:body>
 </html>
-

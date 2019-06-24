@@ -53,29 +53,62 @@ public class UserBean implements Serializable {
     @Inject
     private SecurityContext securityContext;
 
-    private static final Logger LOG = Logger.getLogger(UserBean.class.getName());
-
-    private String username;
-
-    private String password;
-
-    private String confirmPassword;
-
-    private String email;
-
-    private String nickname;
-
-    private String page;
-
-    private String token;
-
-    private boolean success = false;
-
     @Inject
     private Principal principal;
     @Inject
     private HttpServletRequest request;
-    
+
+    private static final Logger LOG = Logger.getLogger(UserBean.class.getName());
+
+    private String username;
+    private String password;
+    private String confirmPassword;
+    private String email;
+    private String nickname;
+    private String page;
+    private String token;
+    private boolean success = false;
+
+    private Users user;
+
+    private String oldPassword;
+
+    /**
+     * Get the value of oldPassword
+     *
+     * @return the value of oldPassword
+     */
+    public String getOldPassword() {
+        return oldPassword;
+    }
+
+    /**
+     * Set the value of oldPassword
+     *
+     * @param oldPassword new value of oldPassword
+     */
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
+    }
+
+    /**
+     * Get the value of user
+     *
+     * @return the value of user
+     */
+    public Users getUser() {
+        return user;
+    }
+
+    /**
+     * Set the value of user
+     *
+     * @param user new value of user
+     */
+    public void setUser(Users user) {
+        this.user = user;
+    }
+
     /**
      * Get the value of success
      *
@@ -310,10 +343,49 @@ public class UserBean implements Serializable {
         usersFacade.edit(user);
         return true;
     }
+    
+    public String actionUserModify(){
+        if(!user.getPassword().equals(Crypto.sha512(oldPassword))){
+            success = false;
+            return "error";
+        }
+        
+        if(!password.equals("") && !confirmPassword.equals("")){
+            user.setPassword(Crypto.sha512(password));
+        }
+ 
+        user.setNickName(nickname);
+        usersFacade.edit(user);
+        return "success";
+    }
+    
+    public void actionLoadUserData(){
+        if( user == null || !user.getUsername().equals(principal.getName())){
+            user = usersFacade.getUserByUsername(principal.getName());
+            
+        }
+        
+        this.email = user.getEmail();
+        this.username = user.getUsername();
+        this.nickname = user.getNickName();
+        this.password = "";
+        success=true;
+        
+    }
+    
 
     public String getPrincipalName() {
-        //request.getu
-        return principal.getName();
+        String pName = principal.getName();
+        if(pName.equals("ANONYMOUS")){
+            return principal.getName();
+        }
+        
+        if( user == null || !user.getUsername().equals(principal.getName())){
+            user = usersFacade.getUserByUsername(principal.getName());
+            
+        }
+
+        return principal.getName() + (user.getNickName().equals("") ? "" : String.format("(%s)", user.getNickName()));
     }
 
     public boolean isLoginStatus() {
@@ -334,5 +406,16 @@ public class UserBean implements Serializable {
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         return context.isUserInRole("admin");
     }
+
+    public boolean hasPermission(){
+        String pName = principal.getName();
+        if(pName.equals("ANONYMOUS")){
+            return false;
+        }
+        
+        
+        return true;
+    }
+    
     
 }

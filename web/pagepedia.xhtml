@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>JWFK維基</title>
+        <ui:decorate template="templates/head.xhtml" />
+        <h:outputStylesheet library="css" name="pedia.css"/>
+        <h:outputStylesheet library="css" name="styles.css"/>
+    </h:head>
+    <h:body class="subpage">
+        <ui:decorate template="templates/index/header.xhtml" />
+
+        <!-- Two -->
+        <section id="two" class="wrapper style2">
+            <div id="container">
+
+                <!-- 項目主選單 -->
+                <div id='cssmenu'>
+                    <ul>
+                        <li><a href='#'>首頁</a></li>
+                        <li class='active'><a href='#'>人物</a>
+                            <ul>
+                                <li><a href='#'>敘事人物</a>
+                                    <ul>
+                                        <li><a href='#'>蔣芳蘭</a></li>
+                                        <li><a href='#'>郭恭洺</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href='#'>君王</a>
+                                    <ul>
+                                        <li><a href='#'>皇仆</a></li>
+                                        <li><a href='#'>季歷</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href='#'>貴族</a>
+                                    <ul>
+                                        <li><a href='#'>蔣義光</a></li>
+                                        <li><a href='#'>維魯斯•馮•哈瑪斯</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href='#'>平民</a>
+                                    <ul>
+                                        <li><a href='#'>芬妮</a></li>
+                                        <li><a href='#'>熙子</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class='active'><a href='#'>世界觀</a>
+                            <ul>
+                                <li><a href='#'>家族</a>
+                                    <ul>
+                                        <li><a href='#'>京畿家族</a></li>
+                                        <li><a href='#'>西境家族</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href='#'>地理</a>
+                                    <ul>
+                                        <li><a href='#'>伊利亞大陸</a></li>
+                                        <li><a href='#'>城市</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href='#'>歷史</a>
+                                    <ul>
+                                        <li><a href='#'>事件</a></li>
+                                        <li><a href='#'>戰爭</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href='#'>文化</a>
+                                    <ul>
+                                        <li><a href='#'>宗教</a></li>
+                                        <li><a href='#'>組織</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a href='#'>討論區</a></li>
+                    </ul>
+                </div>      
+
+                <!--項目內文-->
+                <div id="content">
+                    <div id="pediaId">
+                        <h2>郭雪鈴</h2>
+                    </div>
+                    <div id="pediaEdit">
+                        <h:link outcome="textEditor" class="button alt icon fa-check">編輯</h:link>
+                    </div>
+                    <div style="clear:both; float:none; height:0; overflow:hidden"></div>
+                    <hr/>
+                    <!-- 以下為編輯器修改範圍 -->
+                    <div>
+                        <p><img src="resources/img/000.jpg" width="300" height="420" alt="" /></p>
+                        <p>
+                            郭雪鈴親王是姬·釗與她的母親姬·蕊皇后的第二個女兒，也是最小的孩子，郭恭洺與蔣芳蘭之妹，在蔣芳蘭統治的時期，郭雪鈴是伊利亞帝國皇位的法定繼承人。她現在是安臨城公爵，郭家家主。她也因貌美而聞名。
+                        </p>
+                    </div>
+                    <!-- 編輯器修改範圍到此為止 -->
+                </div>
+
+
+                <aside>
+                    <div id="box1">
+                        <h2>最近修改</h2>
+                        <ul class="style2">
+                            <li class="first">
+                                <h3><h:link outcome="pedia.xhtml" value="格蘭特家族"/></h3>
+                                <p id="time">Cssdlfkj • 30分鐘前</p>
+                            </li>
+                            <li>
+                                <h3><h:link outcome="pedia.xhtml" value="尤利烏斯•格蘭特"/></h3>
+                                <p id="time">Cssdlfkj • 2小時前</p>
+                            </li>
+                            <li>
+                                <h3><h:link outcome="pedia.xhtml" value="蔣•芳蘭"/></h3>
+                                <p id="time">不2不叫周淑怡 • 12小時前</p>
+                            </li>
+                            <li>
+                                <h3><h:link outcome="pedia.xhtml" value="東海道"/></h3>
+                                <p id="time">金牌講師 • 1天前</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="tbox1">
+                        <h2>熱門條目</h2>
+                        <ul class="style2">
+                            <li class="first">
+                                <h3><h:link outcome="pedia.xhtml" value="蕾拉•法蘭西斯"/></h3>
+                            </li>
+                            <li>
+                                <h3><h:link outcome="pedia.xhtml" value="蔣•芳蘭"/></h3>
+                            </li>
+                            <li>
+                                <h3><h:link outcome="pedia.xhtml" value="貝魯斯•赫倫"/></h3>
+                            </li>
+                            <li>
+                                <h3><h:link outcome="pedia.xhtml" value="郭•恭洺"/></h3>
+                            </li>
+                        </ul>
+                    </div>
+                </aside>
+
+                <div style="clear: both;"></div>  <!-- Prevent container from collapsing -->
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <ui:decorate template="templates/index/footer.xhtml" />
+
+        <!-- Scripts -->
+        <ui:decorate template="templates/script.xhtml" />
+        <h:outputScript library = "js" name = "script.js" />
+
+    </h:body>
+</html>
