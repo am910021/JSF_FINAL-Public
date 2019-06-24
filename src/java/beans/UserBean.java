@@ -13,14 +13,16 @@ import database.entityControler.UsersFacade;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.security.Principal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.security.enterprise.SecurityContext;
@@ -69,7 +71,11 @@ public class UserBean implements Serializable {
 
     private boolean success = false;
 
-
+    @Inject
+    private Principal principal;
+    @Inject
+    private HttpServletRequest request;
+    
     /**
      * Get the value of success
      *
@@ -305,12 +311,28 @@ public class UserBean implements Serializable {
         return true;
     }
 
-    private void clean() {
-        username = null;
-        password = null;
-        confirmPassword = null;
-        email = null;
-        nickname = null;
+    public String getPrincipalName() {
+        //request.getu
+        return principal.getName();
     }
 
+    public boolean isLoginStatus() {
+        String remoteUser = request.getRemoteUser();
+        return (remoteUser != null);
+    }
+
+    public String logout() {
+        try {
+            request.logout();
+        } catch (ServletException ex) {
+            Logger.getLogger(UserBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "/service/signin_j_security_check.xhtml?faces-redirect=true";
+    }
+
+    public boolean isAdmin() {
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        return context.isUserInRole("admin");
+    }
+    
 }
