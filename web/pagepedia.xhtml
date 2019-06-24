@@ -10,12 +10,13 @@ and open the template in the editor.
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <f:metadata>
             <f:viewParam name="id" value="#{mainBean.pedia}" converter="converter.idToPediaConverter"/>
         </f:metadata>
-        
+
         <title>JWFK維基 - #{mainBean.pedia.title}</title>
         <ui:decorate template="/templates/head.xhtml" />
         <h:outputStylesheet library="css" name="pedia.css"/>
@@ -112,13 +113,13 @@ and open the template in the editor.
                     <div id="pediaEdit">
                         <h:link outcome="/user/new.xhtml" class="button icon fa-download">新建條目</h:link>
 <!--                        <h:link outcome="/user/edit.xhtml?id=#{mainBean.pedia.id}&amp;page=#{view.viewId}" class="button alt icon fa-check" value="編輯" />-->
-                         <h:link outcome="/user/edit.xhtml?id=#{mainBean.pedia.id}" class="button alt icon fa-check" value="編輯" />
+                        <h:link outcome="/user/edit.xhtml?id=#{mainBean.pedia.id}" class="button alt icon fa-check" value="編輯" />
                     </div>
                     <div style="clear:both; float:none; height:0; overflow:hidden"></div>
                     <hr/>
                     <!-- 以下為編輯器修改範圍 -->
                     <div>
-                        
+
                         <h:outputText value="#{mainBean.html}" escape="false" />
                     </div>
                     <!-- 編輯器修改範圍到此為止 -->
@@ -129,22 +130,16 @@ and open the template in the editor.
                     <div id="box1">
                         <h2>最近修改</h2>
                         <ul class="style2">
-                            <li class="first">
-                                <h3><h:link outcome="pagepedia.xhtml" value="格蘭特家族"/></h3>
-                                <p id="time">Cssdlfkj • 30分鐘前</p>
-                            </li>
-                            <li>
-                                <h3><h:link outcome="pagepedia.xhtml" value="尤利烏斯•格蘭特"/></h3>
-                                <p id="time">Cssdlfkj • 2小時前</p>
-                            </li>
-                            <li>
-                                <h3><h:link outcome="pagepedia.xhtml" value="蔣•芳蘭"/></h3>
-                                <p id="time">不2不叫周淑怡 • 12小時前</p>
-                            </li>
-                            <li>
-                                <h3><h:link outcome="pagepedia.xhtml" value="東海道"/></h3>
-                                <p id="time">金牌講師 • 1天前</p>
-                            </li>
+                            <c:forEach var="log" items="#{mainBean.pedia.pediaLog}">
+
+                                <li class="first">
+                                    <h3><h:link outcome="/index.xhtml" value="#{log.user.nickName}"/></h3>
+                                    
+                                    <p id="time">#{log.createDate}</p>
+                                </li>
+                            </c:forEach>
+
+
                         </ul>
                     </div>
                     <div id="tbox1">
