@@ -37,8 +37,8 @@ and open the template in the editor.
                 <div class="box">
                     <div class="content">
                         <header class="align-center">
-                            <p><h:link outcome="/service/signin.xhtml" value="Already have an account? Sign in"/></p>
-                            <h2>Register with Email</h2>
+                            <p><h:link outcome="/service/signup.xhtml" value="Already have an account? Sign up"/></p>
+                            <h2>Login with Username</h2>
                         </header>
                         <h:form>
                             <h:inputHidden id="beanSignUp" value="true">
@@ -61,7 +61,7 @@ and open the template in the editor.
                                     <f:ajax execute="@form" render="@form" />
                                 </h:commandButton>
                                 <h:outputText escape="false" value=" "></h:outputText>
-                                <h:link outcome="#{userBean.page == null ? '/index.xhtml':userBean.page}" value="◀ Back" class="button alt"/>
+                                <h:link outcome="#{userBean.page}" value="◀ Back" class="button alt"/>
                             </div>
                         </h:form>
                     </div>

@@ -73,7 +73,7 @@ and open the template in the editor.
                             <div class="align-center">
                                 <h:commandButton value="Submit" action="#{userBean.actionSignUp()}"/>
                                 <h:outputText escape="false" value=" "></h:outputText>
-                                <h:link outcome="#{userBean.page == null ? '/index.xhtml':userBean.page}" value="◀ Back" class="button alt"/>
+                                <h:link outcome="#{userBean.page}" value="◀ Back" class="button alt"/>
                             </div>
                         </h:form>
                     </div>

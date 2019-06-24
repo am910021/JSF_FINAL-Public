@@ -29,4 +29,9 @@ public class UsersFacade extends AbstractFacade<Users> {
         super(Users.class);
     }
     
+    public Users getUserById(long id){
+        return (Users)em.createNamedQuery("Users.findUserById").setParameter("id", id).getSingleResult();
+    }
+    
+    
 }

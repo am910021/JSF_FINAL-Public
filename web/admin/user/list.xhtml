@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>JWFK - 會員列表</title>
+        <ui:decorate template="/templates/head.xhtml" />
+    </h:head>
+    <h:body>
+        <ui:decorate template="/templates/index/header.xhtml" />
+
+        <!-- One -->
+        <section id="one" class="wrapper style2">
+            <div class="inner">
+
+
+                <!-- Table -->
+
+                <div class="table-wrapper">
+                    <h:dataTable  value = "#{adminBean.users}" var = "user">
+                        <h:column>
+                            <f:facet name = "header">編號</f:facet>
+                                #{user.id}
+                        </h:column>
+                        <h:column>
+                            <f:facet name = "header">電子信箱</f:facet>
+                                #{user.email}
+                        </h:column>
+                        <h:column>
+                            <f:facet name = "header">帳號</f:facet>
+                                #{user.username}
+                        </h:column>
+                        <h:column>
+                            <f:facet name = "header">狀態</f:facet>
+                                #{user.status == 0 ? "正常" : user.status == 1 ? "封鎖" : "未驗證"}
+                        </h:column>
+                        <h:column>
+                            <f:facet name = "header">編輯</f:facet>
+
+                            <h:link outcome="/admin/user/edit.xhtml?user=#{user.id}" value="編輯"/>
+                        </h:column>
+
+                    </h:dataTable>
+                </div>
+
+
+            </div>
+        </section>
+
+
+        <ui:decorate template="/templates/index/footer.xhtml" />
+
+        <ui:decorate template="/templates/script.xhtml" />
+    </h:body>
+</html>
+
+
+
+

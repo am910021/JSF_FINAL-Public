@@ -70,6 +70,26 @@ public class UserBean implements Serializable {
 
     private boolean success = false;
 
+    private Users user;
+
+    /**
+     * Get the value of user
+     *
+     * @return the value of user
+     */
+    public Users getUser() {
+        return user;
+    }
+
+    /**
+     * Set the value of user
+     *
+     * @param user new value of user
+     */
+    public void setUser(Users user) {
+        this.user = user;
+    }
+
     /**
      * Get the value of success
      *
@@ -112,6 +132,10 @@ public class UserBean implements Serializable {
      * @return the value of page
      */
     public String getPage() {
+        if (page == null) {
+            return "/index.xhtml";
+        }
+
         return page;
     }
 
@@ -240,7 +264,7 @@ public class UserBean implements Serializable {
         user.setDescription("");
         user.setExpiryDate(cal.getTime());
         user.setToken(token);
-        //usersFacade.create(user);
+        usersFacade.create(user);
 
         String url = request.getRequestURL().toString();
         String baseURL = url.substring(0, url.length() - request.getRequestURI().length()) + request.getContextPath() + "/";
@@ -253,12 +277,13 @@ public class UserBean implements Serializable {
                 + "啟用到期日為 " + dateFormat.format(cal.getTime()) + " 您需要在48小時內啟用帳號，不然此次註冊將會無效。\n如果您未註冊過本網站的帳號，可以不用理會這封信。"
                 + "以下是您的啟用帳號連結：" + baseURL + activate;
 
-        //if (!Smtp.send(email, subject, text)) {
-        //    usersFacade.remove(user);
-        //}
+        if (!Smtp.send(email, subject, text)) {
+            usersFacade.remove(user);
+            return "/service/signupSuccess.xhtml?faces-redirect=true&page=" + page;
+        }
 
         success = true;
-        return "/service/signupSuccess.xhtml?faces-redirect=true&page="+page;
+        return "/service/signupSuccess.xhtml?faces-redirect=true&page=" + page;
     }
 
     public boolean isActivate() {
@@ -267,11 +292,21 @@ public class UserBean implements Serializable {
             return false;
         }
         Users user = l.get(0);
+        Date date = new Date();
+        Date eDate = user.getExpiryDate();
 
-        //user.setActivate(true);
-        //user.setToken("");
-        //user.setExpiryDate(null);
-        //usersFacade.edit(user);
+        if (date.getTime() > eDate.getTime()) {
+            usersFacade.remove(user);
+            return false;
+        }
+        
+        
+
+        user.setActivate(true);
+        user.setToken("");
+        user.setExpiryDate(null);
+        user.setStatus((byte)0);
+        usersFacade.edit(user);
         return true;
     }
 

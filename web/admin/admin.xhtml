@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>JWFK - 會員列表</title>
+        <ui:decorate template="/templates/head.xhtml" />
+    </h:head>
+    <h:body>
+        <ui:decorate template="/templates/index/header.xhtml" />
+
+        <!-- One -->
+        <section id="one" class="wrapper style2">
+            <div class="inner">
+                <div class="grid-style">
+
+                    <div>
+                        <div class="box">
+                            <div class="image fit">
+                                <h:graphicImage value="/resources/img/icon/users2.png"/>
+                            </div>
+                            <div class="content">
+                                <header class="align-center">
+                                    <h2>會員帳號管理</h2>
+                                </header>
+                                <footer class="align-center">
+                                    <!-- <a href="#" class="button alt">Learn More</a>-->
+                                    <h:link outcome="/admin/user/list.xhtml" value="進入頁面" />
+                                </footer>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="box">
+                            <div class="image fit">
+                                <h:graphicImage value="/resources/img/icon/users2.png"/>
+                            </div>
+                            <div class="content">
+                                <header class="align-center">
+                                    <p>mattis elementum sapien pretium tellus</p>
+                                    <h2>Vestibulum sit amet</h2>
+                                </header>
+                                <p> Cras aliquet urna ut sapien tincidunt, quis malesuada elit facilisis. Vestibulum sit amet tortor velit. Nam elementum nibh a libero pharetra elementum. Maecenas feugiat ex purus, quis volutpat lacus placerat malesuada.</p>
+                                <footer class="align-center">
+                                    <!-- <a href="#" class="button alt">Learn More</a> -->
+                                    <h:link outcome="textEditor" > Back </h:link>
+                                </footer>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+
+        <ui:decorate template="/templates/index/footer.xhtml" />
+
+        <ui:decorate template="/templates/script.xhtml" />
+    </h:body>
+</html>
+
+
+
+

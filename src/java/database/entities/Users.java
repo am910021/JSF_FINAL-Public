@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     ,@NamedQuery(name = "Users.countEmail", query = "SELECT u FROM Users u WHERE u.email = :email")
     ,@NamedQuery(name = "Users.findUserByUserName", query = "SELECT u FROM Users u WHERE u.username = :username")
     ,@NamedQuery(name = "Users.findUserByToken", query = "SELECT u FROM Users u WHERE u.token = :token")
-        
+
 })
 public class Users implements Serializable {
 
@@ -63,12 +63,32 @@ public class Users implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
 
-    private String description;
+    private String description = "";
 
     private String token;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date expiryDate;
+
+    private byte status = 2; // 0 = 正常 1 = 封鎖  2 = 未啟用
+
+    /**
+     * Get the value of status
+     *
+     * @return the value of status
+     */
+    public byte getStatus() {
+        return status;
+    }
+
+    /**
+     * Set the value of status
+     *
+     * @param status new value of status
+     */
+    public void setStatus(byte status) {
+        this.status = status;
+    }
 
     /**
      * Get the value of expiryDate

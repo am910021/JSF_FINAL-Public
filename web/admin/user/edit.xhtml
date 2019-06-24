@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>sighup</title>
+        <ui:decorate template="/templates/head.xhtml" />
+        <f:metadata>
+            <f:viewParam name="user" value="#{adminBean.user}" converter="converter.idToUserConverter"/>
+        </f:metadata>
+    </h:head>
+    <h:body class="subpage">
+        <ui:decorate template="/templates/index/header.xhtml" />
+
+        <c:set value="#{adminBean.user}" var="user"/>
+
+        <!-- One -->
+        <section id="One" class="wrapper style3">
+            <div class="inner">
+                <header class="align-center">
+                    <p>JWFK</p>
+                    <h2>Join JWFK Today</h2>
+                </header>
+            </div>
+        </section>
+
+        <!-- Two -->
+        <section id="two" class="wrapper style2">
+            <div class="inner">
+                <div class="box">
+                    <div class="content">
+                        <header class="align-center">
+                            <h2>編輯會員 - #{user.username}</h2>
+                        </header>
+                        <h:form>
+                            <h:inputHidden value="#{adminBean.user}" converter="converter.idToUserConverter"/>
+
+
+                            <h:outputLabel value="Email"/>
+                            <h:outputText value="#{user.email}"/>
+                            <br/>
+                            <h:outputLabel value="NickName"/>
+                            <h:outputText value="#{user.nickName}"/>
+                            <br/>
+                            <h:outputLabel value="Username"/>
+                            <h:outputText value="#{user.username}"/>
+                            <br/>
+                            <h:outputLabel value="Status" for="beanStatus"/>
+                            <h:selectOneRadio id="beanStatus" required="true" onchange="beanStatusChange(this)" value="#{adminBean.status}" >
+                                <f:selectItem itemValue = "0" itemLabel = "正常" /> 
+                                <f:selectItem itemValue = "1" itemLabel = "封鎖" />
+                                <f:selectItem itemValue = "2" itemLabel = "未啟用" />
+
+                            </h:selectOneRadio>
+                            <br/>
+
+
+                            <div id="beanDescriptionGroup">
+                                <h:outputLabel value="Description(封鎖原因)" for="beanDescription" />
+                                <h:inputTextarea id="beanDescription" value="#{adminBean.description}" />
+                                <br/>
+                            </div>
+
+
+                            <div class="align-center">
+                                <h:commandButton value="Submit" action="#{adminBean.actionUserEdit()}"/>
+                                <h:outputText escape="false" value=" "></h:outputText>
+                                <h:link outcome="/admin/user/list.xhtml" value="◀ Back" class="button alt"/>
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <ui:decorate template="/templates/index/footer.xhtml" />
+
+        <ui:decorate template="/templates/script.xhtml" />
+
+        <h:outputScript library = "js" name = "userEdit.js" />
+
+        <script>
+            $(document).ready(function () {
+                $i = $('input:checked');
+                var = $i.val();
+                        if (value == 1) {
+                    $des.show();
+                } else {
+                    $des.hide();
+                }
+            });
+        </script>
+    </h:body>
+</html>
