@@ -5,7 +5,7 @@
  */
 package database.entityControler;
 
-import database.entities.Pedias;
+import database.entities.PediaLog;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author yuri
  */
 @Stateless
-public class PediasFacade extends AbstractFacade<Pedias> {
+public class PediaLogFacade extends AbstractFacade<PediaLog> {
 
     @PersistenceContext(unitName = "FinalPU")
     private EntityManager em;
@@ -25,10 +25,8 @@ public class PediasFacade extends AbstractFacade<Pedias> {
         return em;
     }
 
-    public PediasFacade() {
-        super(Pedias.class);
+    public PediaLogFacade() {
+        super(PediaLog.class);
     }
-        public Pedias getById(long id){
-        return (Pedias)em.createNamedQuery("Pedias.findPediaById").setParameter("id", id).getSingleResult();
-    }
+    
 }

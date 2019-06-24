@@ -6,12 +6,16 @@
 package database.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -38,6 +42,41 @@ public class Pedias implements Serializable {
 
     private String subtitle;
 
+    @OneToMany(mappedBy = "pedia", cascade = CascadeType.ALL)
+    private List<PediaLog> pediaLog;
+
+    /**
+     * Get the value of pediaLog
+     *
+     * @return the value of pediaLog
+     */
+    public List<PediaLog> getPediaLog() {
+        return pediaLog;
+    }
+
+    /**
+     * Set the value of pediaLog
+     *
+     * @param pediaLog new value of pediaLog
+     */
+    public void setPediaLog(List<PediaLog> pediaLog) {
+        this.pediaLog = pediaLog;
+    }
+
+    public void addPediaLog(PediaLog pl) {
+        if(pediaLog.isEmpty()){
+            List<PediaLog> lpl = new ArrayList<>();
+            lpl.add(pl);
+            
+            setPediaLog(lpl);
+            return;
+        }
+        
+        
+        this.pediaLog.add(pl);
+    }
+    
+    
     /**
      * Get the value of subtitle
      *

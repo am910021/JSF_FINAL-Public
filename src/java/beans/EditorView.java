@@ -5,7 +5,9 @@
  */
 package beans;
 
+import database.entities.PediaLog;
 import database.entities.Pedias;
+import database.entityControler.PediaLogFacade;
 import database.entityControler.PediasFacade;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -31,6 +33,12 @@ public class EditorView implements Serializable {
 
     @Inject
     IndexBean indexBean;
+    
+    @Inject
+    UserBean userBean;
+    
+    @EJB
+    PediaLogFacade plogFacade;
 
     /**
      * Creates a new instance of EditorView
@@ -132,6 +140,12 @@ public class EditorView implements Serializable {
         pedia.setText(text.getBytes());
         pediasFacade.edit(pedia);
         
+        PediaLog pl = new PediaLog();
+        pl.setPedias(pedia);
+        pl.setUser(userBean.getUser());
+        pedia.addPediaLog(pl);
+        pediasFacade.edit(pedia);
+        
         return String.format("/pagepedia.xhtml?id=%dfaces-redirect=true", pedia.getId());
     }
 
@@ -141,6 +155,15 @@ public class EditorView implements Serializable {
         pedia.setSubtitle(subtitle);
         pedia.setText(text.getBytes());
         pediasFacade.create(pedia);
+        
+        PediaLog pl = new PediaLog();
+        pl.setPedias(pedia);
+        pl.setUser(userBean.getUser());
+        //plogFacade.create(pl);
+        
+        pedia.addPediaLog(pl);
+        
+        pediasFacade.edit(pedia);
         
         return String.format("/pagepedia.xhtml?id=%dfaces-redirect=true", pedia.getId());
     }
