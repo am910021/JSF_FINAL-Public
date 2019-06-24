@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>sighin</title>
+        <ui:decorate template="../templates/head.xhtml" />
+        <f:metadata>
+            <f:viewParam name="page" value="#{userBean.page}" />
+        </f:metadata>
+    </h:head>
+    <h:body class="subpage">
+        <ui:decorate template="../templates/index/header.xhtml" />
+        <!-- One -->
+        <section id="One" class="wrapper style3">
+            <div class="inner">
+                <header class="align-center">
+                    <p>JWFK</p>
+                    <h2>Welcome Back!</h2>
+                </header>
+            </div>
+        </section>
+
+        <!-- Two -->
+
+
+
+        <c:if test = "#{userBean.success}">
+            <section id="two" class="wrapper style2">
+                <div class="inner">
+                    <div class="box">
+                        <div class="content">
+                            <header class="align-center">
+                                <p>帳號己啟用成功，請重新登入帳號，在 <span id="countdown">10</span> 秒後跳轉至<h:link id="countdownUrl" outcome="/service/signin.xhtml" value="登入"/>畫面。</p>
+                                <h2>帳號啟用成功！</h2>
+                            </header>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </c:if>
+
+        <c:if test = "#{!userBean.success}">
+            <section id="two" class="wrapper style2">
+                <div class="inner">
+                    <div class="box">
+                        <div class="content">
+                            <header class="align-center">
+                                <p>您可能尚未註冊帳號，或是帳到超過48小時未啟用，請重新註冊，在 <span id="countdown">10</span> 秒後跳轉至<h:link id="countdownUrl" outcome="/service/signup.xhtml" value="註冊"/>畫面。</p>
+                                <h2>帳號啟用失敗！</h2>
+                            </header>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </c:if>
+
+        <h:outputScript library = "js" name = "countdown.js" />
+
+        <ui:decorate template="../templates/index/footer.xhtml" />
+
+        <ui:decorate template="../templates/script.xhtml" />
+
+        <script>
+            $(document).ready(function () {
+                countdown($("#countdownUrl").attr('href'));
+            });
+        </script>
+
+    </h:body>
+</html>

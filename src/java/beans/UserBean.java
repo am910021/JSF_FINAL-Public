@@ -13,19 +13,24 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.security.enterprise.SecurityContext;
+import javax.security.enterprise.credential.Password;
 import javax.servlet.http.HttpServletRequest;
 import tool.Crypto;
 import tool.Smtp;
-import validator.user.EmailValidator;
+
+import javax.security.enterprise.credential.UsernamePasswordCredential;
+import javax.security.enterprise.identitystore.CredentialValidationResult;
+import javax.servlet.ServletException;
 
 /**
  *
@@ -44,6 +49,9 @@ public class UserBean implements Serializable {
     @EJB
     UsersFacade usersFacade;
 
+    @Inject
+    private SecurityContext securityContext;
+
     private static final Logger LOG = Logger.getLogger(UserBean.class.getName());
 
     private String username;
@@ -57,8 +65,28 @@ public class UserBean implements Serializable {
     private String nickname;
 
     private String page;
-    
-        private String token;
+
+    private String token;
+
+    private boolean success = false;
+
+    /**
+     * Get the value of success
+     *
+     * @return the value of success
+     */
+    public boolean isSuccess() {
+        return success;
+    }
+
+    /**
+     * Set the value of success
+     *
+     * @param success new value of success
+     */
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
 
     /**
      * Get the value of token
@@ -77,7 +105,6 @@ public class UserBean implements Serializable {
     public void setToken(String token) {
         this.token = token;
     }
-
 
     /**
      * Get the value of page
@@ -187,11 +214,11 @@ public class UserBean implements Serializable {
         this.username = username;
     }
 
-    public String actionSignIn() {
-        return "/index.xhtml?faces-redirect=true";
-    }
-    
-    public String actionLogin() {
+    public String actionSignIn() throws ServletException {
+        //FacesContext facecontext = FacesContext.getCurrentInstance();
+        //HttpServletRequest request = (HttpServletRequest) facecontext.getExternalContext().getRequest();
+        //request.login(username, password);
+
         return "/index.xhtml?faces-redirect=true";
     }
 
@@ -213,7 +240,7 @@ public class UserBean implements Serializable {
         user.setDescription("");
         user.setExpiryDate(cal.getTime());
         user.setToken(token);
-        usersFacade.create(user);
+        //usersFacade.create(user);
 
         String url = request.getRequestURL().toString();
         String baseURL = url.substring(0, url.length() - request.getRequestURI().length()) + request.getContextPath() + "/";
@@ -226,32 +253,28 @@ public class UserBean implements Serializable {
                 + "啟用到期日為 " + dateFormat.format(cal.getTime()) + " 您需要在48小時內啟用帳號，不然此次註冊將會無效。\n如果您未註冊過本網站的帳號，可以不用理會這封信。"
                 + "以下是您的啟用帳號連結：" + baseURL + activate;
 
-        if (!Smtp.send(email, subject, text)) {
-            usersFacade.remove(user);
-        }
+        //if (!Smtp.send(email, subject, text)) {
+        //    usersFacade.remove(user);
+        //}
 
-        return page + "?faces-redirect=true";
+        success = true;
+        return "/service/signupSuccess.xhtml?faces-redirect=true&page="+page;
     }
 
-    
-    public boolean isActivate(){
+    public boolean isActivate() {
         List<Users> l = usersFacade.getEM().createNamedQuery("Users.findUserByToken").setParameter("token", token).getResultList();
-        if(l.isEmpty()){
+        if (l.isEmpty()) {
             return false;
         }
         Users user = l.get(0);
-        
+
         //user.setActivate(true);
         //user.setToken("");
         //user.setExpiryDate(null);
-        
         //usersFacade.edit(user);
-        
-        
         return true;
     }
-    
-    
+
     private void clean() {
         username = null;
         password = null;

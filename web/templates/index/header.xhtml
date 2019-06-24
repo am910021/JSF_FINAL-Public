@@ -14,16 +14,16 @@
         <!-- Nav -->
         <nav id="menu">
             <ul class="links">
-                <li><h:link outcome="index.xhtml" value="Home"/></li>
-                <li><h:link outcome="index.xhtml" value="Movies"/></li>
-                <li><h:link outcome="index.xhtml" value="TV"/></li>
-                <li><h:link outcome="index.xhtml" value="Games"/></li>
-                <li><h:link outcome="index.xhtml" value="Novels"/></li>
-                <li><h:link outcome="index.xhtml" value="Video"/></li>
-                <li><h:link outcome="index.xhtml" value="會員頁面"/></li>
-                <li><h:link outcome="index.xhtml" value="後台頁面"/></li>
-                <li><h:link outcome="service/signin.xhtml?page=#{view.viewId == '/service/signup.xhtml'? '/index.xhtml' : view.viewId}" value="Sign In" rendered="#{view.viewId != '/service/signin.xhtml'}"/></li>
-                <li><h:link outcome="service/signup.xhtml?page=#{view.viewId == '/service/signin.xhtml'? '/index.xhtml' : view.viewId}" value="Sign Up" rendered="#{view.viewId != '/service/signup.xhtml'}"/></li>
+                <li><h:link outcome="/index.xhtml" value="Home"/></li>
+                <li><h:link outcome="/index.xhtml" value="Movies"/></li>
+                <li><h:link outcome="/index.xhtml" value="TV"/></li>
+                <li><h:link outcome="/index.xhtml" value="Games"/></li>
+                <li><h:link outcome="/index.xhtml" value="Novels"/></li>
+                <li><h:link outcome="/index.xhtml" value="Video"/></li>
+                <li><h:link outcome="/index.xhtml" value="會員頁面"/></li>
+                <li><h:link outcome="/index.xhtml" value="後台頁面"/></li>
+                <li><h:link outcome="/signup?page=#{view.viewId == '/service/signup.xhtml'? '/index.xhtml' : view.viewId}" value="Sign In" rendered="#{view.viewId != '/service/signin.xhtml'}"/></li>
+                <li><h:link outcome="/service/signup.xhtml?page=#{view.viewId == '/service/signin.xhtml'? '/index.xhtml' : view.viewId}" value="Sign Up" rendered="#{view.viewId != '/service/signup.xhtml'}"/></li>
             </ul>
         </nav>
     </ui:composition>

@@ -41,30 +41,34 @@ and open the template in the editor.
                             <h2>Register with Email</h2>
                         </header>
                         <h:form>
-                            <h:inputHidden id="beanPassWordValidator" value="true">
+                            <h:inputHidden id="beanPassWordValidator" value="true" >
                                 <f:validator validatorId="validator.user.password" />
                                 <f:attribute name="hPassword"        value="#{hPassword}" />
                                 <f:attribute name="hConfirmPassword" value="#{hConfirmPassword}" />
                             </h:inputHidden>
 
-                            <h:outputLabel value="Email" for="beanEmail"/> <h:message for="beanEmail" style="color: red;" />
+                            <h:outputLabel value="Email" for="beanEmail"/> <h:message id="msgEmail" for="beanEmail" style="color: red;" />
                             <h:inputText id="beanEmail" value="#{userBean.email}" pt:placeholder="Enter Email"  required="true" requiredMessage="Please enter email">
                                 <f:validator validatorId="validator.user.email" />
+                                <f:ajax event="blur" render="msgEmail" execute="@this" />
                             </h:inputText>
                             <br/>
                             <h:outputLabel value="NickName" for="beanNickName"/> <h:message for="beanNickName" style="color: red;" />
                             <h:inputText id="beanNickName" value="#{userBean.nickname}" pt:placeholder="Enter Nickname" />
                             <br/>
-                            <h:outputLabel value="Username" for="beanUserName"/> <h:message for="beanUserName" style="color: red;" />
+                            <h:outputLabel value="Username" for="beanUserName"/> <h:message id="msgUsername" for="beanUserName" style="color: red;" />
                             <h:inputText id="beanUserName" value="#{userBean.username}" pt:placeholder="Enter Username" required="true" requiredMessage="Please enter username">
                                 <f:validator validatorId="validator.user.username" />
+                                <f:ajax event="blur" render="msgUsername" execute="@this" />
                             </h:inputText>
                             <br/>
-                            <h:outputLabel value="Password" for="beanPassWord"/> <h:message for="beanPassWordValidator" style="color: red;" />
-                            <h:inputSecret id="beanPassWord" value="#{userBean.password}" binding="#{hPassword}" pt:placeholder="Enter Password" />
+                            <h:outputLabel value="Password" for="beanPassWord"/> <h:message id="msgPassword" for="beanPassWordValidator" style="color: red;" />
+                            <h:inputSecret id="beanPassWord" value="#{userBean.password}" binding="#{hPassword}" pt:placeholder="Enter Password">
+                            </h:inputSecret>
                             <br/>
                             <h:outputLabel value="Confirm Password" for="beanConfirmPassWord"/>
-                            <h:inputSecret id="beanConfirmPassWord" value="#{userBean.confirmPassword}" binding="#{hConfirmPassword}" pt:placeholder="Confirm Password" />
+                            <h:inputSecret id="beanConfirmPassWord" value="#{userBean.confirmPassword}" binding="#{hConfirmPassword}" pt:placeholder="Confirm Password">
+                            </h:inputSecret>
                             <br/>
                             <div class="align-center">
                                 <h:commandButton value="Submit" action="#{userBean.actionSignUp()}"/>
