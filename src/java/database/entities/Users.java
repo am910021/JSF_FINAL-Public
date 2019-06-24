@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -71,6 +72,27 @@ public class Users implements Serializable {
     private Date expiryDate;
 
     private byte status = 2; // 0 = 正常 1 = 封鎖  2 = 未啟用
+
+    @OneToOne(mappedBy="user") 
+    private Groups group;
+
+    /**
+     * Get the value of group
+     *
+     * @return the value of group
+     */
+    public Groups getGroup() {
+        return group;
+    }
+
+    /**
+     * Set the value of group
+     *
+     * @param group new value of group
+     */
+    public void setGroup(Groups group) {
+        this.group = group;
+    }
 
     /**
      * Get the value of status

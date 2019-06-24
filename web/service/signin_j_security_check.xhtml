@@ -12,7 +12,7 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <title>sighin</title>
+        <title>Sigh In</title>
         <ui:decorate template="../templates/head.xhtml" />
         <f:metadata>
             <f:viewParam name="page" value="#{userBean.page}" />
@@ -40,30 +40,27 @@ and open the template in the editor.
                             <p><h:link outcome="/service/signup.xhtml" value="Already have an account? Sign up"/></p>
                             <h2>Login with Username</h2>
                         </header>
-                        <h:form>
-                            <h:inputHidden id="beanSignUp" value="true">
-                                <f:validator validatorId="validator.user.signin" />
-                                <f:attribute name="hPassword" value="#{hPassword}" />
-                                <f:attribute name="hUsername" value="#{hUsername}" />
-                            </h:inputHidden>
+
+                        <form method="POST" action="j_security_check">
 
 
-                            <h:outputLabel value="Username" for="beanUserName"/> <h:message for="beanUserName" style="color: red;" />
-                            <h:inputText id="beanUserName" value="#{userBean.username}" binding="#{hUsername}" pt:placeholder="Enter Username" required="true" requiredMessage="Please enter Username" />
+                            <label for="beanUserName">Username</label> 
+                            <input id="beanUserName" class="form-control" type="text" name="j_username" placeholder="Enter Username"/>
                             <br/>
-                            <h:outputLabel value="Password" for="beanPassWord"/> <h:message for="beanPassWord" style="color: red;" />
-                            <h:inputSecret id="beanPassWord" value="#{userBean.password}" binding="#{hPassword}" pt:placeholder="Enter Password" required="true" requiredMessage="Please enter Password"/>
+                            <label for="beanPassWord">Password</label> 
+                            <input id="beanPassWord" class="form-control" type="password" name="j_password" placeholder="Enter Password"/>
                             <br/>
 
-                            <h:message for="beanSignUp" style="color: red;" />
                             <div class="align-center">
-                                <h:commandButton value="Submit" action="#{userBean.actionSignIn()}">
-<!--                                    <f:ajax execute="@form" render="@form" />-->
-                                </h:commandButton>
+                                
                                 <h:outputText escape="false" value=" "></h:outputText>
-                                <h:link outcome="#{userBean.page}" value="◀ Back" class="button alt"/>
+                                <input class="btn btn-primary" type="submit" value="Submit"/>
+                                
+                                
                             </div>
-                        </h:form>
+
+                        </form>
+
                     </div>
                 </div>
             </div>

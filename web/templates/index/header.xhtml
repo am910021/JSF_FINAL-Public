@@ -8,6 +8,7 @@
         <!-- Header -->
         <header id="header">
             <div class="logo"><h:link outcome="/index.xhtml" value="JWFK"/></div>
+            <span>#{securityBean.principalName}</span>
             <a href="#menu">Menu</a>
         </header>
 
@@ -21,9 +22,12 @@
                 <li><h:link outcome="/index.xhtml" value="Novels"/></li>
                 <li><h:link outcome="/index.xhtml" value="Video"/></li>
                 <li><h:link outcome="/index.xhtml" value="會員頁面"/></li>
-                <li><h:link outcome="/admin/admin.xhtml" value="後台頁面" /></li>
-                <li><h:link outcome="/service/signin.xhtml?page=#{view.viewId == '/service/signup.xhtml'? '/index.xhtml' : view.viewId}" value="Sign In" rendered="#{view.viewId != '/service/signin.xhtml'}"/></li>
-                <li><h:link outcome="/service/signup.xhtml?page=#{view.viewId == '/service/signin.xhtml'? '/index.xhtml' : view.viewId}" value="Sign Up" rendered="#{view.viewId != '/service/signup.xhtml'}"/></li>
+                <li><h:link outcome="/admin/admin.xhtml" value="後台頁面" rendered="#{securityBean.admin}" /></li>
+                <li><h:commandLink action="#{securityBean.logout()}"  value="Log out" rendered="#{securityBean.loginStatus}"/></li>
+                
+                
+                <li><h:link outcome="/service/signin_j_security_check.xhtml?page=#{view.viewId == '/service/signup.xhtml'? '/index.xhtml' : view.viewId}" value="Sign In" rendered="#{(view.viewId != '/service/signin.xhtml') and !securityBean.loginStatus}"/></li>
+                <li><h:link outcome="/service/signup.xhtml?page=#{view.viewId == '/service/signin.xhtml'? '/index.xhtml' : view.viewId}" value="Sign Up" rendered="#{(view.viewId != '/service/signup.xhtml') and !securityBean.loginStatus}"/></li>
             </ul>
         </nav>
     </ui:composition>

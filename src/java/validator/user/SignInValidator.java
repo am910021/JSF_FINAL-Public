@@ -19,6 +19,8 @@ import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import tool.Crypto;
 
 /**
@@ -61,6 +63,8 @@ public class SignInValidator implements Validator {
         if (!Crypto.checkSHA512(password, user.getPassword())) {
             throw new ValidatorException(new FacesMessage("帳號密碼錯誤，請重新登入。"));
         }
+  
+        
 
     }
 }

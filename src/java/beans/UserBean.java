@@ -6,7 +6,9 @@
 package beans;
 
 import EditorView.IndexBean;
+import database.entities.Groups;
 import database.entities.Users;
+import database.entityControler.GroupsFacade;
 import database.entityControler.UsersFacade;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -16,20 +18,14 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.security.enterprise.SecurityContext;
-import javax.security.enterprise.credential.Password;
 import javax.servlet.http.HttpServletRequest;
 import tool.Crypto;
-import tool.Smtp;
-
-import javax.security.enterprise.credential.UsernamePasswordCredential;
-import javax.security.enterprise.identitystore.CredentialValidationResult;
 import javax.servlet.ServletException;
 
 /**
@@ -48,6 +44,9 @@ public class UserBean implements Serializable {
 
     @EJB
     UsersFacade usersFacade;
+
+    @EJB
+    GroupsFacade groupsFacade;
 
     @Inject
     private SecurityContext securityContext;
@@ -70,25 +69,6 @@ public class UserBean implements Serializable {
 
     private boolean success = false;
 
-    private Users user;
-
-    /**
-     * Get the value of user
-     *
-     * @return the value of user
-     */
-    public Users getUser() {
-        return user;
-    }
-
-    /**
-     * Set the value of user
-     *
-     * @param user new value of user
-     */
-    public void setUser(Users user) {
-        this.user = user;
-    }
 
     /**
      * Get the value of success
@@ -239,11 +219,23 @@ public class UserBean implements Serializable {
     }
 
     public String actionSignIn() throws ServletException {
-        //FacesContext facecontext = FacesContext.getCurrentInstance();
-        //HttpServletRequest request = (HttpServletRequest) facecontext.getExternalContext().getRequest();
-        //request.login(username, password);
+//        FacesContext facecontext = FacesContext.getCurrentInstance();
+//        HttpServletRequest request = (HttpServletRequest) facecontext.getExternalContext().getRequest();
+//        HttpServletResponse response = (HttpServletResponse) facecontext.getExternalContext().getResponse();
+//        
+//        //request.login(username, password);
+//        request.getParameterMap().put("j_username", new String[]{username});
+//        request.getParameterMap().put("j_password", new String[]{password});
+//
+//        try {
+//            request.getRequestDispatcher("/j_security_check").forward(request, response);
+//            return "/index.xhtml?faces-redirect=true&pass=true";
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return "/index.xhtml?faces-redirect=true&pass=false";
+//        }
 
-        return "/index.xhtml?faces-redirect=true";
+        return "/index.xhtml?faces-redirect=true&pass=false";
     }
 
     public String actionSignUp() {
@@ -264,8 +256,14 @@ public class UserBean implements Serializable {
         user.setDescription("");
         user.setExpiryDate(cal.getTime());
         user.setToken(token);
-        usersFacade.create(user);
 
+        Groups group = new Groups();
+        group.setName("user");
+        group.setUsername(username);
+        group.setUser(user);
+        groupsFacade.create(group);
+
+        //usersFacade.create(user);
         String url = request.getRequestURL().toString();
         String baseURL = url.substring(0, url.length() - request.getRequestURI().length()) + request.getContextPath() + "/";
 
@@ -277,11 +275,10 @@ public class UserBean implements Serializable {
                 + "啟用到期日為 " + dateFormat.format(cal.getTime()) + " 您需要在48小時內啟用帳號，不然此次註冊將會無效。\n如果您未註冊過本網站的帳號，可以不用理會這封信。"
                 + "以下是您的啟用帳號連結：" + baseURL + activate;
 
-        if (!Smtp.send(email, subject, text)) {
-            usersFacade.remove(user);
-            return "/service/signupSuccess.xhtml?faces-redirect=true&page=" + page;
-        }
-
+//        if (!Smtp.send(email, subject, text)) {
+//            usersFacade.remove(user);
+//            return "/service/signupSuccess.xhtml?faces-redirect=true&page=" + page;
+//        }
         success = true;
         return "/service/signupSuccess.xhtml?faces-redirect=true&page=" + page;
     }
@@ -299,13 +296,11 @@ public class UserBean implements Serializable {
             usersFacade.remove(user);
             return false;
         }
-        
-        
 
         user.setActivate(true);
         user.setToken("");
         user.setExpiryDate(null);
-        user.setStatus((byte)0);
+        user.setStatus((byte) 0);
         usersFacade.edit(user);
         return true;
     }
