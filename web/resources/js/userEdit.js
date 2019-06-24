@@ -9,11 +9,11 @@
 
 function beanStatusChange(selectObject) {
     $des = $("#beanDescriptionGroup");
-    var value = selectObject.value;  
-    if(value == 1){
-        
+    var value = selectObject.value;
+    if (value == 1) {
+
         $des.show();
-    }else{
+    } else {
         $des.hide();
     }
 }

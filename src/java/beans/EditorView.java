@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package EditorView;
+package beans;
 
 import database.entities.Pedias;
 import database.entityControler.PediasFacade;
@@ -13,26 +13,53 @@ import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 
 /**
  *
  * @author Chipan
  */
 @Named(value = "editorView")
-@SessionScoped
+@RequestScoped
 public class EditorView implements Serializable {
 
     private static final Logger LOG = Logger.getLogger(EditorView.class.getName());
 
     @EJB
     PediasFacade pediasFacade;
-    
-    
-    
+
+    @Inject
+    IndexBean indexBean;
+
     /**
      * Creates a new instance of EditorView
      */
     public EditorView() {
+    }
+
+    private Pedias pedia;
+
+    /**
+     * Get the value of pedia
+     *
+     * @return the value of pedia
+     */
+    public Pedias getPedia() {
+        return pedia;
+    }
+
+    /**
+     * Set the value of pedia
+     *
+     * @param pedia new value of pedia
+     */
+    public void setPedia(Pedias pedia) {
+        this.title = pedia.getTitle();
+        this.subtitle = pedia.getSubtitle();
+        this.text = new String(pedia.getText());
+
+        this.pedia = pedia;
     }
 
     private String title;
@@ -57,7 +84,7 @@ public class EditorView implements Serializable {
      */
     public void setText(String text) {
         this.text = text;
-        
+
     }
 
     /**
@@ -76,7 +103,7 @@ public class EditorView implements Serializable {
      */
     public void setSubtitle(String subtitle) {
         this.subtitle = subtitle;
-        
+
     }
 
     /**
@@ -95,25 +122,27 @@ public class EditorView implements Serializable {
      */
     public void setTitle(String title) {
         this.title = title;
-        
+
     }
-    
-    public String actionAddPedias(){
+
+    public String actionModifyPedias() {
+
+        pedia.setTitle(title);
+        pedia.setSubtitle(subtitle);
+        pedia.setText(text.getBytes());
+        pediasFacade.edit(pedia);
+        
+        return String.format("/pagepedia.xhtml?id=%dfaces-redirect=true", pedia.getId());
+    }
+
+    public String actionAddPedias() {
         Pedias pedia = new Pedias();
         pedia.setTitle(title);
         pedia.setSubtitle(subtitle);
         pedia.setText(text.getBytes());
         pediasFacade.create(pedia);
         
-        
-        LOG.log(Level.INFO, text);
-        LOG.log(Level.INFO, subtitle);
-        LOG.log(Level.INFO, title);
-        
-        
-        //LOG.log(Level.INFO, new String(text.getBytes()));
-        
-        return "/index.xhtml";
+        return String.format("/pagepedia.xhtml?id=%dfaces-redirect=true", pedia.getId());
     }
 
 }

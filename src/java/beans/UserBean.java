@@ -5,7 +5,6 @@
  */
 package beans;
 
-import EditorView.IndexBean;
 import database.entities.Groups;
 import database.entities.Users;
 import database.entityControler.GroupsFacade;
@@ -29,6 +28,7 @@ import javax.security.enterprise.SecurityContext;
 import javax.servlet.http.HttpServletRequest;
 import tool.Crypto;
 import javax.servlet.ServletException;
+import tool.Smtp;
 
 /**
  *
@@ -314,10 +314,10 @@ public class UserBean implements Serializable {
                 + "啟用到期日為 " + dateFormat.format(cal.getTime()) + " 您需要在48小時內啟用帳號，不然此次註冊將會無效。\n如果您未註冊過本網站的帳號，可以不用理會這封信。"
                 + "以下是您的啟用帳號連結：" + baseURL + activate;
 
-//        if (!Smtp.send(email, subject, text)) {
-//            usersFacade.remove(user);
-//            return "/service/signupSuccess.xhtml?faces-redirect=true&page=" + page;
-//        }
+        if (!Smtp.send(email, subject, text)) {
+            usersFacade.remove(user);
+            return "/service/signupSuccess.xhtml?faces-redirect=true&page=" + page;
+        }
         success = true;
         return "/service/signupSuccess.xhtml?faces-redirect=true&page=" + page;
     }
@@ -397,6 +397,7 @@ public class UserBean implements Serializable {
         try {
             request.logout();
         } catch (ServletException ex) {
+            ex.printStackTrace();
             Logger.getLogger(UserBean.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "/service/signin_j_security_check.xhtml?faces-redirect=true";

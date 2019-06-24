@@ -13,12 +13,12 @@ and open the template in the editor.
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
-        
+
         <ui:decorate template="/templates/head.xhtml" />
         <f:metadata>
             <f:viewParam name="user" value="#{adminBean.user}" converter="converter.idToUserConverter"/>
         </f:metadata>
-        
+
         <title>編輯會員 - #{adminBean.user.username}</title>
     </h:head>
     <h:body class="subpage">

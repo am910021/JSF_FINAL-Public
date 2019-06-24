@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package EditorView;
+package beans;
 
 import java.io.Serializable;
 import javax.inject.Named;
@@ -24,6 +24,26 @@ public class IndexBean implements Serializable{
 
     private String page;
 
+    private String query;
+
+    /**
+     * Get the value of query
+     *
+     * @return the value of query
+     */
+    public String getQuery() {
+        return query;
+    }
+
+    /**
+     * Set the value of query
+     *
+     * @param query new value of query
+     */
+    public void setQuery(String query) {
+        this.query = query;
+    }
+
     /**
      * Get the value of page
      *
@@ -35,7 +55,10 @@ public class IndexBean implements Serializable{
         }
         return page;
     }
-
+    
+    public String getPageO() {
+        return page;
+    }
     /**
      * Set the value of page
      *

@@ -12,9 +12,8 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <ui:decorate template="/templates/head.xhtml" />
-        
         <title>這個標題應該跟section one的h2一樣 即"JWFK維基"</title>
+        <ui:decorate template="/templates/head.xhtml" />
         <h:outputStylesheet library="css" name="pedia.css"/>
     </h:head>
     <h:body class="subpage">
@@ -25,7 +24,7 @@ and open the template in the editor.
         <section id="One" class="wrapper style3">
             <div class="inner">
                 <header class="align-center">
-                    <p><h:link outcome="pedia.xhtml" value="編輯:郭雪鈴"/></p>
+                    <p><h:link outcome="pagepedia.xhtml" value="編輯:郭雪鈴"/></p>
                     <h2>JWFK維基</h2>
                 </header>
             </div>
@@ -35,9 +34,8 @@ and open the template in the editor.
         <section id="two" class="wrapper style2">
             <div id="container"> 
                 <h:form>
-                    <h:outputLabel value="標題" />
+                    <h:outputLabel value="標題"/>
                     <h:inputText value="#{editorView.title}" pt:placeholder="Enter Title"/>
-                    <br/>
                     <h:outputLabel value="副標題(非必要)"/>
                     <h:inputText value="#{editorView.subtitle}" pt:placeholder="Enter Subtitle"/>
 
@@ -63,7 +61,7 @@ and open the template in the editor.
                     </p:textEditor>
 
                     <div style="text-align:center;">
-                        <p:commandButton value="Submit" update="display" action="#{editorView.actionAddPedias()}"  oncomplete="" icon="pi pi-save" />
+                        <p:commandButton value="Submit" update="display" action="#{editorView.actionAddPedias()}" icon="pi pi-save" />
                         <p:commandButton value="Clear" type="button" onclick="PF('editor1').clear();" icon="pi pi-times" />
                     </div>
 
@@ -78,8 +76,10 @@ and open the template in the editor.
             </div>
         </section>
 
-        <ui:decorate template="/templates/index/footer.xhtml" />
 
+        <!-- Footer -->
+        <ui:decorate template="/templates/index/footer.xhtml" />
+        <!-- Scripts -->
         <ui:decorate template="/templates/script.xhtml" />
 
     </h:body>

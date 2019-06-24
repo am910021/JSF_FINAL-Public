@@ -29,4 +29,8 @@ public class PediasFacade extends AbstractFacade<Pedias> {
         super(Pedias.class);
     }
     
+    public Pedias getById(long id){
+        return (Pedias)em.createNamedQuery("Pedias.findPediaById").setParameter("id", id).getSingleResult();
+    }
+    
 }

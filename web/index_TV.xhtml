@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>TV</title>
+        <ui:decorate template="templates/head.xhtml" />
+    </h:head>
+    <h:body class="subpage">
+
+        <!-- Header -->
+        <ui:decorate template="templates/index/header.xhtml" />
+
+        <!-- One -->
+        <section id="One" class="wrapper style3">
+            <div class="inner">
+                <header class="align-center">
+                    <p>JWFK</p>
+                    <h2>TV</h2>
+                </header>
+            </div>
+        </section>
+
+        <!-- One -->
+        <section id="one" class="wrapper style2">
+            <div class="inner">
+                <div class="grid-style">
+
+                    <div>
+                        <div class="box">
+                            <div class="image fit">
+                                <img src="resources/img/pic02.jpg" alt="" />
+                            </div>
+                            <div class="content">
+                                <header class="align-center">
+                                    <p>maecenas sapien feugiat ex purus</p>
+                                    <h2>Lorem ipsum dolor</h2>
+                                </header>
+                                <p> Cras aliquet urna ut sapien tincidunt, quis malesuada elit facilisis. Vestibulum sit amet tortor velit. Nam elementum nibh a libero pharetra elementum. Maecenas feugiat ex purus, quis volutpat lacus placerat malesuada.</p>
+                                <footer class="align-center">
+                                    <h:link outcome="pagepedia" class="button special icon fa-search">Learn More</h:link>
+                                </footer>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="box">
+                            <div class="image fit">
+                                <img src="resources/img/pic03.jpg" alt="" />
+                            </div>
+                            <div class="content">
+                                <header class="align-center">
+                                    <p>mattis elementum sapien pretium tellus</p>
+                                    <h2>Vestibulum sit amet</h2>
+                                </header>
+                                <p> Cras aliquet urna ut sapien tincidunt, quis malesuada elit facilisis.</p>
+                                <footer class="align-center">
+                                    <h:link outcome="/user/textEditor.xhtml" class="button special icon fa-search">Learn More</h:link>
+                                </footer>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Two -->
+        <section id="two" class="wrapper style3">
+            <div class="inner">
+                <header class="align-center">
+                    <p>在這裡，粉絲可以自由討論、查尋和分享各種流行文化主題。</p>
+                    <h2>JWFK代表著娛樂文化粉絲的聲音。</h2>
+                </header>
+            </div>
+        </section>
+
+        <!-- Three -->
+        <section id="three" class="wrapper style2">
+            <div class="inner">
+                <header class="align-center">
+                    <p class="special">電影/電視劇/小說/遊戲</p>
+                    <h2>連結</h2>
+                </header>
+                <div class="gallery">
+                    <div>
+                        <div class="image fit">
+                            <h:link outcome="index_MV"><img src="resources/img/pic01.jpg" alt="" /></h:link>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="image fit">
+                            <h:link outcome="index_NL"><img src="resources/img/pic02.jpg" alt="" /></h:link>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="image fit">
+                            <h:link outcome="index_TV"><img src="resources/img/pic03.jpg" alt="" /></h:link>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="image fit">
+                            <h:link outcome="index_GM"><img src="resources/img/pic04.jpg" alt="" /></h:link>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <ui:decorate template="templates/index/footer.xhtml" />
+        <!-- Scripts -->
+        <ui:decorate template="templates/script.xhtml" />
+
+    </h:body>
+</html>

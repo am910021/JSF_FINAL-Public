@@ -10,12 +10,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author yuri
  */
 @Entity
+@XmlRootElement
+@NamedQueries({
+ 
+    @NamedQuery(name = "Pedias.findPediaById", query = "SELECT p FROM Pedias p WHERE p.id = :id")
+
+})
 public class Pedias implements Serializable {
 
     private static final long serialVersionUID = 1L;
