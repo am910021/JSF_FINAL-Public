@@ -373,6 +373,12 @@ public class UserBean implements Serializable {
         
     }
     
+    public void clean(){
+        this.email = "";
+        this.nickname = "";
+        this.username="";
+    }
+    
 
     public String getPrincipalName() {
         String pName = principal.getName();
@@ -396,6 +402,7 @@ public class UserBean implements Serializable {
     public String logout() {
         try {
             request.logout();
+            this.clean();
         } catch (ServletException ex) {
             ex.printStackTrace();
             Logger.getLogger(UserBean.class.getName()).log(Level.SEVERE, null, ex);
